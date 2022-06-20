@@ -2,10 +2,12 @@ package com.maltrkawi.spring.data.jpa.tutorial.repository;
 
 import com.maltrkawi.spring.data.jpa.tutorial.entity.Student;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import javax.transaction.Transactional;
 import java.util.List;
 
 @Repository
@@ -36,4 +38,11 @@ public interface StudentRepository extends JpaRepository<Student, Long> {
             value = "SELECT * FROM student WHERE email_address = :emailId"
     )
     Student getStudentByEmailAddressNativeNamedParam(@Param("emailId") String emailId);
+
+    @Modifying
+    @Transactional
+    @Query(
+            value = "UPDATE student SET first_name = ?1 WHERE email_address = ?2",
+            nativeQuery = true)
+    int updateStudentNameByEmailId(String firstName, String emailId);
 }

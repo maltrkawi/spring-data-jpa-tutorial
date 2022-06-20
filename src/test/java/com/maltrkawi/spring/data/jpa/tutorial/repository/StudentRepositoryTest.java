@@ -90,4 +90,10 @@ class StudentRepositoryTest {
         Student student = studentRepository.getStudentByEmailAddressNativeNamedParam("f.altrkawi@gmail.com");
         System.out.println("student: " + student);
     }
+
+    @Test
+    public void updateStudentNameByEmailIdTest(){
+        int result = studentRepository.updateStudentNameByEmailId("Faris Alterkawi", "f.altrkawi@gmail.com");
+        System.out.println("No of updated records: " + result);
+    }
 }
