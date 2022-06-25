@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import static org.junit.jupiter.api.Assertions.*;
+import java.util.List;
 
 @SpringBootTest
 class CourseMaterialRepositoryTest {
@@ -17,15 +17,21 @@ class CourseMaterialRepositoryTest {
     @Test
     public void saveCourseMaterial(){
         Course course = Course.builder()
-                .title("SE-001")
-                .credit(6)
+                .title(".NET")
+                .credit(4)
                 .build();
 
         CourseMaterial courseMaterial = CourseMaterial.builder()
-                .url("www.material.com")
+                .url("www.material-without-course.com")
                 .course(course)
                 .build();
 
         courseMaterialRepository.save(courseMaterial);
+    }
+
+    @Test
+    public void printAllCourseMaterials(){
+        List<CourseMaterial> courseMaterialList = courseMaterialRepository.findAll();
+        System.out.println("courseMaterialList = " + courseMaterialList);
     }
 }
