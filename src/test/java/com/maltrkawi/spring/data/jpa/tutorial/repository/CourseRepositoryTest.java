@@ -1,6 +1,7 @@
 package com.maltrkawi.spring.data.jpa.tutorial.repository;
 
 import com.maltrkawi.spring.data.jpa.tutorial.entity.Course;
+import com.maltrkawi.spring.data.jpa.tutorial.entity.Student;
 import com.maltrkawi.spring.data.jpa.tutorial.entity.Teacher;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -84,5 +85,29 @@ class CourseRepositoryTest {
                 .findByTitleContaining("00", firstPageTenRecords)
                 .getContent();
         System.out.println("courses = " + courses);
+    }
+
+    @Test
+    public void saveCourseWtihStudentAndTeacher(){
+        Teacher teacher = Teacher.builder()
+                .firstName("Lizzie")
+                .lastName("Morgan")
+                .build();
+
+        Student student = Student.builder()
+                .firstName("Abdullah")
+                .lastName("Altrkawi")
+                .emailId("a.altrkawi@gmail.com")
+                .build();
+
+        Course course = Course.builder()
+                .title("AI")
+                .credit(12)
+                .teacher(teacher)
+                .build();
+
+        course.addStudent(student);
+
+        courseRepository.save(course);
     }
 }
